@@ -19,7 +19,7 @@ export class Producer {
     @Column({ unique: true, nullable: true })
     CNPJ: string;
 
-    @Column()
+    @Column({ unique: true})
     nameProducer: string;
 
     @Column()
@@ -31,13 +31,13 @@ export class Producer {
     @Column()
     state: string;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
     areaTotalHectares: number;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-    areaAgricuturalHectares: number;
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    areaAgriculturalHectares: number;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
     areaVegetationHectares: number;
 
     @Column({

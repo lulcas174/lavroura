@@ -8,7 +8,7 @@ import { ProducerController } from './controller/producer.controller';
     imports: [
         TypeOrmModule.forFeature([Producer]),
     ],
-    controllers: [ProducerController],
     providers: [ProducerService],
+    controllers: [ProducerController],
 })
 export class RuralProducerModule {}
