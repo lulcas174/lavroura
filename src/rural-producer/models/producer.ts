@@ -19,7 +19,7 @@ export class Producer {
     @Column({ unique: true, nullable: true })
     CNPJ: string;
 
-    @Column({ unique: true})
+    @Column()
     nameProducer: string;
 
     @Column()

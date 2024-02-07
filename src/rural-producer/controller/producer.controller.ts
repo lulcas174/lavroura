@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Res, Param, Put, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, Param, Put, Req, Delete } from '@nestjs/common';
 import { Producer } from '../models/producer';
 import { ProducerService } from '../service/producer.service';
 import { validateCPFAndCNPJPresence, ValidCPF, ValidCNPJ} from '../validators/cpf-cnpj.validators';
@@ -24,7 +24,7 @@ export class ProducerController {
             return res.status(201).send(producerCreated);
         } catch (error) {
             console.error('Error creating producer:', error);
-            return res.status(500).send('Internal server error');
+            return res.status(500).send(error.message);
         }
     }
 
@@ -64,8 +64,22 @@ export class ProducerController {
             if (error instanceof ValidationException) {
                 return res.status(400).send(error.message); 
             } else {
-                return res.status(500).send('Internal server error');
+                return res.status(500).send(error.message);
             }
+        }
+    }
+
+    @Delete('delete/:id')
+    async deleteProducer(@Res() res, @Param('id') id) {
+        try {
+            const producerDeleted = await this.producerService.deleteProducer(id);
+            if (producerDeleted.status !== 'success') {
+                return res.status(404).send(producerDeleted.message);
+            }
+            return res.status(200).send(producerDeleted);
+        } catch (error) {
+            console.error('Error deleting producer:', error);
+            return res.status(500).send('Internal server error');
         }
     }
 }
