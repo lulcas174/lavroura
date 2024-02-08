@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { DashboardService } from '../service/dashboard.service';
 
 @ApiTags('producer/dashboard')
@@ -28,9 +28,13 @@ export class DashboardController {
             return res.status(500).send('Internal server error');
         }
     }
-
+    
+    @ApiQuery({ name: 'state', required: false })
     @Get('list/total/states')
-    async totalStates(@Res() res, @Query('state') state?: string) {
+    async totalStates(
+        @Res() res, 
+        @Query('state') state?: string
+        ) {
         try {
             const states = await this.dashboardService.totalStates(state);
             return res.status(200).send(states);
