@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ValidationException } from 'src/exceptions/validationException.exceptions';
 import { Producer } from '../models/producer';
 import { ProducerService } from '../service/producer.service';
 import { validateRequestBody } from '../validators/validateRequest.validators';
 
+@ApiTags('producer')
 @Controller('producer')
 export class ProducerController {
     constructor(private readonly producerService: ProducerService) {

@@ -1,10 +1,9 @@
-import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { RuralProducerModule } from './rural-producer/rural-producer.module';
-import { Producer } from './rural-producer/models/producer';
 
 const configModule = ConfigModule.forRoot({
 });
