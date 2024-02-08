@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ValidationException } from 'src/exceptions/validationException.exceptions';
 import { Producer } from '../models/producer';
 import { ProducerService } from '../service/producer.service';
 import { validateRequestBody } from '../validators/validateRequest.validators';
@@ -61,7 +60,7 @@ export class ProducerController {
             return res.status(201).send(producerUpdated);
         } catch (error) {
             console.error('Error updating producer:', error);
-            if (error instanceof ValidationException) {
+            if (error) {
                 return res.status(400).send(error.message); 
             } else {
                 return res.status(500).send(error.message);

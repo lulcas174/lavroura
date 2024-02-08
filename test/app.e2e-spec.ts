@@ -1,24 +1,38 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { ProducerController } from 'src/rural-producer/controller/producer.controller';
+import { Producer } from 'src/rural-producer/models/producer';
+import { ProducerService } from 'src/rural-producer/service/producer.service';
+import { Repository } from 'typeorm';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+describe('Producer Endpoint Tests', () => {
+  let producerController: ProducerController;
+  let producerService: ProducerService;
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+  beforeEach(() => {
+	producerService = new ProducerService({} as Repository<Producer>);
+	producerController = new ProducerController(producerService);
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
-  });
+  describe('findAll', () => {
+	it('should return an array of producers', async () => {
+		const resMock = {
+			status: jest.fn().mockReturnThis(),
+			send: jest.fn()
+		}
+		const result = [
+			{
+				id:1,
+				CPF: '12345678900',
+				name: 'John Doe',
+				areaTotalHectares: 100,
+				areaAgriculturalHectares: 50,
+				areaVegetationHectares: 50
+				
+			}
+		];
+		
+		jest.spyOn(producerController, 'list').mockResolvedValue(result);
+		expect(await producerController.list(resMock)).toBe(result);
+	})
+  })
 });
