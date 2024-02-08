@@ -1,10 +1,8 @@
-import { Controller, Get, Post, Body, Res, Param, Put, Req, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { ValidationException } from 'src/exceptions/validationException.exceptions';
 import { Producer } from '../models/producer';
 import { ProducerService } from '../service/producer.service';
-import { validateCPFAndCNPJPresence, ValidCPF, ValidCNPJ} from '../validators/cpf-cnpj.validators';
-import { validateAreaTotalValues } from '../validators/area.validators';
 import { validateRequestBody } from '../validators/validateRequest.validators';
-import { ValidationException } from 'src/exceptions/validationException.exceptions';
 
 @Controller('producer')
 export class ProducerController {
