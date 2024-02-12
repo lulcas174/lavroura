@@ -52,6 +52,12 @@ Clone o projeto
 
 Entre no diretório do projeto
 
+Adicione os valores na .env
+
+```bash
+  cp .env.example .env
+```
+
 Rode o comando do docker:
 
 ```bash
